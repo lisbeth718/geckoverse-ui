@@ -3,6 +3,7 @@ import * as react from 'react';
 import { ButtonHTMLAttributes, HTMLAttributes, ReactNode, InputHTMLAttributes, LabelHTMLAttributes } from 'react';
 import * as react_jsx_runtime from 'react/jsx-runtime';
 export { AuthLayout, AuthLayoutProps, LoginForm, LoginFormProps, PasswordStrength, SignupForm, SignupFormProps, generatePassword, getPasswordStrength } from './auth/index.mjs';
+export { SettingsDangerZone, SettingsDangerZoneProps, SettingsEmailSection, SettingsEmailSectionProps, SettingsLayout, SettingsLayoutProps, SettingsPasswordSection, SettingsPasswordSectionProps, SettingsProfileSection, SettingsProfileSectionProps } from './settings/index.mjs';
 import { ClassValue } from 'clsx';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {

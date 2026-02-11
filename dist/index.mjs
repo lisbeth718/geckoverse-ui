@@ -1817,6 +1817,319 @@ function AuthLayout({
     ] })
   ] });
 }
+
+// src/settings/settings-layout.tsx
+import { jsx as jsx16, jsxs as jsxs12 } from "react/jsx-runtime";
+function SettingsLayout({
+  title,
+  description,
+  children,
+  className
+}) {
+  return /* @__PURE__ */ jsxs12("div", { className: cn("max-w-2xl space-y-6", className), children: [
+    /* @__PURE__ */ jsxs12("div", { children: [
+      /* @__PURE__ */ jsx16("h1", { className: "text-2xl font-bold text-[var(--foreground)]", children: title }),
+      description && /* @__PURE__ */ jsx16("p", { className: "text-[var(--foreground-muted)]", children: description })
+    ] }),
+    children
+  ] });
+}
+
+// src/settings/settings-profile-section.tsx
+import { jsx as jsx17, jsxs as jsxs13 } from "react/jsx-runtime";
+function SettingsProfileSection({
+  onSave,
+  saving = false,
+  error,
+  children,
+  className
+}) {
+  return /* @__PURE__ */ jsxs13("div", { className: cn("space-y-4", className), children: [
+    /* @__PURE__ */ jsxs13(Card, { children: [
+      /* @__PURE__ */ jsxs13(CardHeader, { children: [
+        /* @__PURE__ */ jsx17(CardTitle, { children: "Profile" }),
+        /* @__PURE__ */ jsx17(CardDescription, { children: "Your personal account information" })
+      ] }),
+      /* @__PURE__ */ jsx17("div", { className: "space-y-4", children })
+    ] }),
+    error && /* @__PURE__ */ jsx17("div", { className: "rounded-xl border border-[var(--critical)]/30 bg-[var(--critical-bg)] p-3 text-sm text-[var(--critical)]", children: error }),
+    /* @__PURE__ */ jsx17("div", { className: "flex justify-end", children: /* @__PURE__ */ jsx17(Button, { onClick: onSave, loading: saving, children: "Save changes" }) })
+  ] });
+}
+
+// src/settings/settings-email-section.tsx
+import { useState as useState7 } from "react";
+import { jsx as jsx18, jsxs as jsxs14 } from "react/jsx-runtime";
+function SettingsEmailSection({
+  currentEmail,
+  onUpdate,
+  className
+}) {
+  const [newEmail, setNewEmail] = useState7("");
+  const [saving, setSaving] = useState7(false);
+  const [error, setError] = useState7("");
+  const [success, setSuccess] = useState7(false);
+  const handleSubmit = async (e) => {
+    e?.preventDefault();
+    if (!newEmail || newEmail === currentEmail) return;
+    setSaving(true);
+    setError("");
+    setSuccess(false);
+    try {
+      await onUpdate(newEmail);
+      setSuccess(true);
+      setNewEmail("");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to update email");
+    } finally {
+      setSaving(false);
+    }
+  };
+  return /* @__PURE__ */ jsxs14(Card, { className, children: [
+    /* @__PURE__ */ jsxs14(CardHeader, { children: [
+      /* @__PURE__ */ jsx18(CardTitle, { children: "Change email" }),
+      /* @__PURE__ */ jsx18(CardDescription, { children: "Update your email address. We'll send a confirmation link to both your current and new email." })
+    ] }),
+    /* @__PURE__ */ jsxs14("div", { className: "space-y-4", children: [
+      /* @__PURE__ */ jsxs14("div", { className: "space-y-2", children: [
+        /* @__PURE__ */ jsx18("label", { className: "text-sm font-medium text-[var(--foreground-muted)]", children: "Current email" }),
+        /* @__PURE__ */ jsx18(Input, { value: currentEmail, disabled: true })
+      ] }),
+      /* @__PURE__ */ jsxs14("div", { className: "space-y-2", children: [
+        /* @__PURE__ */ jsx18("label", { className: "text-sm font-medium text-[var(--foreground-muted)]", children: "New email" }),
+        /* @__PURE__ */ jsx18(
+          Input,
+          {
+            type: "email",
+            value: newEmail,
+            onChange: (e) => setNewEmail(e.target.value),
+            placeholder: "Enter new email address"
+          }
+        )
+      ] }),
+      error && /* @__PURE__ */ jsx18("p", { className: "text-sm text-[var(--critical)]", children: error }),
+      success && /* @__PURE__ */ jsx18("p", { className: "text-sm text-[var(--success)]", children: "Confirmation email sent. Check your inbox." }),
+      /* @__PURE__ */ jsx18(
+        Button,
+        {
+          variant: "secondary",
+          onClick: handleSubmit,
+          loading: saving,
+          disabled: !newEmail || newEmail === currentEmail,
+          children: "Update email"
+        }
+      )
+    ] })
+  ] });
+}
+
+// src/settings/settings-password-section.tsx
+import { useState as useState8 } from "react";
+import { jsx as jsx19, jsxs as jsxs15 } from "react/jsx-runtime";
+function SettingsPasswordSection({
+  onUpdate,
+  minLength = 8,
+  className
+}) {
+  const [newPassword, setNewPassword] = useState8("");
+  const [confirmPassword, setConfirmPassword] = useState8("");
+  const [saving, setSaving] = useState8(false);
+  const [error, setError] = useState8("");
+  const [success, setSuccess] = useState8(false);
+  const handleSubmit = async (e) => {
+    e?.preventDefault();
+    if (!newPassword) return;
+    if (newPassword !== confirmPassword) {
+      setError("Passwords don't match");
+      return;
+    }
+    if (newPassword.length < minLength) {
+      setError(`Password must be at least ${minLength} characters`);
+      return;
+    }
+    setSaving(true);
+    setError("");
+    setSuccess(false);
+    try {
+      await onUpdate(newPassword);
+      setSuccess(true);
+      setNewPassword("");
+      setConfirmPassword("");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to update password");
+    } finally {
+      setSaving(false);
+    }
+  };
+  return /* @__PURE__ */ jsxs15(Card, { className, children: [
+    /* @__PURE__ */ jsxs15(CardHeader, { children: [
+      /* @__PURE__ */ jsx19(CardTitle, { children: "Change password" }),
+      /* @__PURE__ */ jsxs15(CardDescription, { children: [
+        "Update your password. Use a strong password with at least ",
+        minLength,
+        " characters."
+      ] })
+    ] }),
+    /* @__PURE__ */ jsxs15("div", { className: "space-y-4", children: [
+      /* @__PURE__ */ jsxs15("div", { className: "space-y-2", children: [
+        /* @__PURE__ */ jsx19("label", { className: "text-sm font-medium text-[var(--foreground-muted)]", children: "New password" }),
+        /* @__PURE__ */ jsx19(
+          Input,
+          {
+            type: "password",
+            value: newPassword,
+            onChange: (e) => setNewPassword(e.target.value),
+            placeholder: "Enter new password"
+          }
+        )
+      ] }),
+      /* @__PURE__ */ jsxs15("div", { className: "space-y-2", children: [
+        /* @__PURE__ */ jsx19("label", { className: "text-sm font-medium text-[var(--foreground-muted)]", children: "Confirm password" }),
+        /* @__PURE__ */ jsx19(
+          Input,
+          {
+            type: "password",
+            value: confirmPassword,
+            onChange: (e) => setConfirmPassword(e.target.value),
+            placeholder: "Confirm new password"
+          }
+        )
+      ] }),
+      error && /* @__PURE__ */ jsx19("p", { className: "text-sm text-[var(--critical)]", children: error }),
+      success && /* @__PURE__ */ jsx19("p", { className: "text-sm text-[var(--success)]", children: "Password updated successfully." }),
+      /* @__PURE__ */ jsx19(
+        Button,
+        {
+          variant: "secondary",
+          onClick: handleSubmit,
+          loading: saving,
+          disabled: !newPassword || !confirmPassword,
+          children: "Update password"
+        }
+      )
+    ] })
+  ] });
+}
+
+// src/settings/settings-danger-zone.tsx
+import { useState as useState9 } from "react";
+import { jsx as jsx20, jsxs as jsxs16 } from "react/jsx-runtime";
+function SettingsDangerZone({
+  onDelete,
+  onSignOut,
+  deleteWarning = "This action cannot be undone. All your data will be permanently deleted.",
+  confirmPhrase = "delete my account",
+  className
+}) {
+  const [showConfirm, setShowConfirm] = useState9(false);
+  const [confirmText, setConfirmText] = useState9("");
+  const [deleting, setDeleting] = useState9(false);
+  const [signingOut, setSigningOut] = useState9(false);
+  const handleDelete = async () => {
+    if (confirmText !== confirmPhrase) return;
+    setDeleting(true);
+    try {
+      await onDelete();
+    } catch (err) {
+      console.error("Failed to delete account:", err);
+    } finally {
+      setDeleting(false);
+    }
+  };
+  const handleSignOut = async () => {
+    setSigningOut(true);
+    try {
+      await onSignOut();
+    } catch (err) {
+      console.error("Failed to sign out:", err);
+    } finally {
+      setSigningOut(false);
+    }
+  };
+  return /* @__PURE__ */ jsxs16(Card, { className: cn("border-[var(--critical)]/30", className), children: [
+    /* @__PURE__ */ jsxs16(CardHeader, { children: [
+      /* @__PURE__ */ jsx20(CardTitle, { className: "text-[var(--critical)]", children: "Danger zone" }),
+      /* @__PURE__ */ jsx20(CardDescription, { children: "Irreversible actions that affect your account" })
+    ] }),
+    /* @__PURE__ */ jsxs16("div", { className: "space-y-4", children: [
+      /* @__PURE__ */ jsxs16("div", { className: "flex items-center justify-between", children: [
+        /* @__PURE__ */ jsxs16("div", { children: [
+          /* @__PURE__ */ jsx20("p", { className: "font-medium text-[var(--foreground)]", children: "Delete account" }),
+          /* @__PURE__ */ jsx20("p", { className: "text-sm text-[var(--foreground-muted)]", children: "Permanently delete your account and all data" })
+        ] }),
+        /* @__PURE__ */ jsx20(
+          Button,
+          {
+            variant: "danger",
+            size: "sm",
+            onClick: () => setShowConfirm(true),
+            children: "Delete account"
+          }
+        )
+      ] }),
+      showConfirm && /* @__PURE__ */ jsxs16("div", { className: "rounded-xl border border-[var(--critical)]/30 bg-[var(--critical)]/5 p-4 space-y-4", children: [
+        /* @__PURE__ */ jsx20("p", { className: "text-sm text-[var(--foreground)]", children: deleteWarning }),
+        /* @__PURE__ */ jsxs16("div", { className: "space-y-2", children: [
+          /* @__PURE__ */ jsxs16("label", { className: "text-sm font-medium text-[var(--foreground-muted)]", children: [
+            "Type ",
+            /* @__PURE__ */ jsx20("span", { className: "font-mono text-[var(--critical)]", children: confirmPhrase }),
+            " to confirm"
+          ] }),
+          /* @__PURE__ */ jsx20(
+            Input,
+            {
+              value: confirmText,
+              onChange: (e) => setConfirmText(e.target.value),
+              placeholder: confirmPhrase
+            }
+          )
+        ] }),
+        /* @__PURE__ */ jsxs16("div", { className: "flex gap-2", children: [
+          /* @__PURE__ */ jsx20(
+            Button,
+            {
+              variant: "secondary",
+              size: "sm",
+              onClick: () => {
+                setShowConfirm(false);
+                setConfirmText("");
+              },
+              children: "Cancel"
+            }
+          ),
+          /* @__PURE__ */ jsx20(
+            Button,
+            {
+              variant: "danger",
+              size: "sm",
+              onClick: handleDelete,
+              loading: deleting,
+              disabled: confirmText !== confirmPhrase,
+              children: "Permanently delete"
+            }
+          )
+        ] })
+      ] }),
+      /* @__PURE__ */ jsx20("hr", { className: "border-[var(--border)]" }),
+      /* @__PURE__ */ jsxs16("div", { className: "flex items-center justify-between", children: [
+        /* @__PURE__ */ jsxs16("div", { children: [
+          /* @__PURE__ */ jsx20("p", { className: "font-medium text-[var(--foreground)]", children: "Sign out" }),
+          /* @__PURE__ */ jsx20("p", { className: "text-sm text-[var(--foreground-muted)]", children: "Sign out of your account on this device" })
+        ] }),
+        /* @__PURE__ */ jsx20(
+          Button,
+          {
+            variant: "secondary",
+            size: "sm",
+            onClick: handleSignOut,
+            loading: signingOut,
+            children: "Sign out"
+          }
+        )
+      ] })
+    ] })
+  ] });
+}
 export {
   AuthLayout,
   Badge,
@@ -1860,6 +2173,11 @@ export {
   PixelGeckoWatcher,
   PixelGeckoWaving,
   Progress,
+  SettingsDangerZone,
+  SettingsEmailSection,
+  SettingsLayout,
+  SettingsPasswordSection,
+  SettingsProfileSection,
   SignupForm,
   Skeleton,
   SkeletonAvatar,

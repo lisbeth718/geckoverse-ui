@@ -21,6 +21,11 @@
       "import": "./dist/auth/index.mjs",
       "require": "./dist/auth/index.js"
     },
+    "./settings": {
+      "types": "./dist/settings/index.d.ts",
+      "import": "./dist/settings/index.mjs",
+      "require": "./dist/settings/index.js"
+    },
     "./hooks": {
       "types": "./dist/hooks/index.d.ts",
       "import": "./dist/hooks/index.mjs",

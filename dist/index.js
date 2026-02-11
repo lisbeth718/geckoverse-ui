@@ -63,6 +63,11 @@ __export(src_exports, {
   PixelGeckoWatcher: () => PixelGeckoWatcher,
   PixelGeckoWaving: () => PixelGeckoWaving,
   Progress: () => Progress,
+  SettingsDangerZone: () => SettingsDangerZone,
+  SettingsEmailSection: () => SettingsEmailSection,
+  SettingsLayout: () => SettingsLayout,
+  SettingsPasswordSection: () => SettingsPasswordSection,
+  SettingsProfileSection: () => SettingsProfileSection,
   SignupForm: () => SignupForm,
   Skeleton: () => Skeleton,
   SkeletonAvatar: () => SkeletonAvatar,
@@ -1900,6 +1905,319 @@ function AuthLayout({
     ] })
   ] });
 }
+
+// src/settings/settings-layout.tsx
+var import_jsx_runtime16 = require("react/jsx-runtime");
+function SettingsLayout({
+  title,
+  description,
+  children,
+  className
+}) {
+  return /* @__PURE__ */ (0, import_jsx_runtime16.jsxs)("div", { className: cn("max-w-2xl space-y-6", className), children: [
+    /* @__PURE__ */ (0, import_jsx_runtime16.jsxs)("div", { children: [
+      /* @__PURE__ */ (0, import_jsx_runtime16.jsx)("h1", { className: "text-2xl font-bold text-[var(--foreground)]", children: title }),
+      description && /* @__PURE__ */ (0, import_jsx_runtime16.jsx)("p", { className: "text-[var(--foreground-muted)]", children: description })
+    ] }),
+    children
+  ] });
+}
+
+// src/settings/settings-profile-section.tsx
+var import_jsx_runtime17 = require("react/jsx-runtime");
+function SettingsProfileSection({
+  onSave,
+  saving = false,
+  error,
+  children,
+  className
+}) {
+  return /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)("div", { className: cn("space-y-4", className), children: [
+    /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)(Card, { children: [
+      /* @__PURE__ */ (0, import_jsx_runtime17.jsxs)(CardHeader, { children: [
+        /* @__PURE__ */ (0, import_jsx_runtime17.jsx)(CardTitle, { children: "Profile" }),
+        /* @__PURE__ */ (0, import_jsx_runtime17.jsx)(CardDescription, { children: "Your personal account information" })
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("div", { className: "space-y-4", children })
+    ] }),
+    error && /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("div", { className: "rounded-xl border border-[var(--critical)]/30 bg-[var(--critical-bg)] p-3 text-sm text-[var(--critical)]", children: error }),
+    /* @__PURE__ */ (0, import_jsx_runtime17.jsx)("div", { className: "flex justify-end", children: /* @__PURE__ */ (0, import_jsx_runtime17.jsx)(Button, { onClick: onSave, loading: saving, children: "Save changes" }) })
+  ] });
+}
+
+// src/settings/settings-email-section.tsx
+var import_react12 = require("react");
+var import_jsx_runtime18 = require("react/jsx-runtime");
+function SettingsEmailSection({
+  currentEmail,
+  onUpdate,
+  className
+}) {
+  const [newEmail, setNewEmail] = (0, import_react12.useState)("");
+  const [saving, setSaving] = (0, import_react12.useState)(false);
+  const [error, setError] = (0, import_react12.useState)("");
+  const [success, setSuccess] = (0, import_react12.useState)(false);
+  const handleSubmit = async (e) => {
+    e?.preventDefault();
+    if (!newEmail || newEmail === currentEmail) return;
+    setSaving(true);
+    setError("");
+    setSuccess(false);
+    try {
+      await onUpdate(newEmail);
+      setSuccess(true);
+      setNewEmail("");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to update email");
+    } finally {
+      setSaving(false);
+    }
+  };
+  return /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)(Card, { className, children: [
+    /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)(CardHeader, { children: [
+      /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(CardTitle, { children: "Change email" }),
+      /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(CardDescription, { children: "Update your email address. We'll send a confirmation link to both your current and new email." })
+    ] }),
+    /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)("div", { className: "space-y-4", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)("div", { className: "space-y-2", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("label", { className: "text-sm font-medium text-[var(--foreground-muted)]", children: "Current email" }),
+        /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(Input, { value: currentEmail, disabled: true })
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime18.jsxs)("div", { className: "space-y-2", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("label", { className: "text-sm font-medium text-[var(--foreground-muted)]", children: "New email" }),
+        /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(
+          Input,
+          {
+            type: "email",
+            value: newEmail,
+            onChange: (e) => setNewEmail(e.target.value),
+            placeholder: "Enter new email address"
+          }
+        )
+      ] }),
+      error && /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("p", { className: "text-sm text-[var(--critical)]", children: error }),
+      success && /* @__PURE__ */ (0, import_jsx_runtime18.jsx)("p", { className: "text-sm text-[var(--success)]", children: "Confirmation email sent. Check your inbox." }),
+      /* @__PURE__ */ (0, import_jsx_runtime18.jsx)(
+        Button,
+        {
+          variant: "secondary",
+          onClick: handleSubmit,
+          loading: saving,
+          disabled: !newEmail || newEmail === currentEmail,
+          children: "Update email"
+        }
+      )
+    ] })
+  ] });
+}
+
+// src/settings/settings-password-section.tsx
+var import_react13 = require("react");
+var import_jsx_runtime19 = require("react/jsx-runtime");
+function SettingsPasswordSection({
+  onUpdate,
+  minLength = 8,
+  className
+}) {
+  const [newPassword, setNewPassword] = (0, import_react13.useState)("");
+  const [confirmPassword, setConfirmPassword] = (0, import_react13.useState)("");
+  const [saving, setSaving] = (0, import_react13.useState)(false);
+  const [error, setError] = (0, import_react13.useState)("");
+  const [success, setSuccess] = (0, import_react13.useState)(false);
+  const handleSubmit = async (e) => {
+    e?.preventDefault();
+    if (!newPassword) return;
+    if (newPassword !== confirmPassword) {
+      setError("Passwords don't match");
+      return;
+    }
+    if (newPassword.length < minLength) {
+      setError(`Password must be at least ${minLength} characters`);
+      return;
+    }
+    setSaving(true);
+    setError("");
+    setSuccess(false);
+    try {
+      await onUpdate(newPassword);
+      setSuccess(true);
+      setNewPassword("");
+      setConfirmPassword("");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to update password");
+    } finally {
+      setSaving(false);
+    }
+  };
+  return /* @__PURE__ */ (0, import_jsx_runtime19.jsxs)(Card, { className, children: [
+    /* @__PURE__ */ (0, import_jsx_runtime19.jsxs)(CardHeader, { children: [
+      /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(CardTitle, { children: "Change password" }),
+      /* @__PURE__ */ (0, import_jsx_runtime19.jsxs)(CardDescription, { children: [
+        "Update your password. Use a strong password with at least ",
+        minLength,
+        " characters."
+      ] })
+    ] }),
+    /* @__PURE__ */ (0, import_jsx_runtime19.jsxs)("div", { className: "space-y-4", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime19.jsxs)("div", { className: "space-y-2", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("label", { className: "text-sm font-medium text-[var(--foreground-muted)]", children: "New password" }),
+        /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(
+          Input,
+          {
+            type: "password",
+            value: newPassword,
+            onChange: (e) => setNewPassword(e.target.value),
+            placeholder: "Enter new password"
+          }
+        )
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime19.jsxs)("div", { className: "space-y-2", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("label", { className: "text-sm font-medium text-[var(--foreground-muted)]", children: "Confirm password" }),
+        /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(
+          Input,
+          {
+            type: "password",
+            value: confirmPassword,
+            onChange: (e) => setConfirmPassword(e.target.value),
+            placeholder: "Confirm new password"
+          }
+        )
+      ] }),
+      error && /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("p", { className: "text-sm text-[var(--critical)]", children: error }),
+      success && /* @__PURE__ */ (0, import_jsx_runtime19.jsx)("p", { className: "text-sm text-[var(--success)]", children: "Password updated successfully." }),
+      /* @__PURE__ */ (0, import_jsx_runtime19.jsx)(
+        Button,
+        {
+          variant: "secondary",
+          onClick: handleSubmit,
+          loading: saving,
+          disabled: !newPassword || !confirmPassword,
+          children: "Update password"
+        }
+      )
+    ] })
+  ] });
+}
+
+// src/settings/settings-danger-zone.tsx
+var import_react14 = require("react");
+var import_jsx_runtime20 = require("react/jsx-runtime");
+function SettingsDangerZone({
+  onDelete,
+  onSignOut,
+  deleteWarning = "This action cannot be undone. All your data will be permanently deleted.",
+  confirmPhrase = "delete my account",
+  className
+}) {
+  const [showConfirm, setShowConfirm] = (0, import_react14.useState)(false);
+  const [confirmText, setConfirmText] = (0, import_react14.useState)("");
+  const [deleting, setDeleting] = (0, import_react14.useState)(false);
+  const [signingOut, setSigningOut] = (0, import_react14.useState)(false);
+  const handleDelete = async () => {
+    if (confirmText !== confirmPhrase) return;
+    setDeleting(true);
+    try {
+      await onDelete();
+    } catch (err) {
+      console.error("Failed to delete account:", err);
+    } finally {
+      setDeleting(false);
+    }
+  };
+  const handleSignOut = async () => {
+    setSigningOut(true);
+    try {
+      await onSignOut();
+    } catch (err) {
+      console.error("Failed to sign out:", err);
+    } finally {
+      setSigningOut(false);
+    }
+  };
+  return /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)(Card, { className: cn("border-[var(--critical)]/30", className), children: [
+    /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)(CardHeader, { children: [
+      /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(CardTitle, { className: "text-[var(--critical)]", children: "Danger zone" }),
+      /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(CardDescription, { children: "Irreversible actions that affect your account" })
+    ] }),
+    /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)("div", { className: "space-y-4", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)("div", { className: "flex items-center justify-between", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)("div", { children: [
+          /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("p", { className: "font-medium text-[var(--foreground)]", children: "Delete account" }),
+          /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("p", { className: "text-sm text-[var(--foreground-muted)]", children: "Permanently delete your account and all data" })
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(
+          Button,
+          {
+            variant: "danger",
+            size: "sm",
+            onClick: () => setShowConfirm(true),
+            children: "Delete account"
+          }
+        )
+      ] }),
+      showConfirm && /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)("div", { className: "rounded-xl border border-[var(--critical)]/30 bg-[var(--critical)]/5 p-4 space-y-4", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("p", { className: "text-sm text-[var(--foreground)]", children: deleteWarning }),
+        /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)("div", { className: "space-y-2", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)("label", { className: "text-sm font-medium text-[var(--foreground-muted)]", children: [
+            "Type ",
+            /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("span", { className: "font-mono text-[var(--critical)]", children: confirmPhrase }),
+            " to confirm"
+          ] }),
+          /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(
+            Input,
+            {
+              value: confirmText,
+              onChange: (e) => setConfirmText(e.target.value),
+              placeholder: confirmPhrase
+            }
+          )
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)("div", { className: "flex gap-2", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(
+            Button,
+            {
+              variant: "secondary",
+              size: "sm",
+              onClick: () => {
+                setShowConfirm(false);
+                setConfirmText("");
+              },
+              children: "Cancel"
+            }
+          ),
+          /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(
+            Button,
+            {
+              variant: "danger",
+              size: "sm",
+              onClick: handleDelete,
+              loading: deleting,
+              disabled: confirmText !== confirmPhrase,
+              children: "Permanently delete"
+            }
+          )
+        ] })
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("hr", { className: "border-[var(--border)]" }),
+      /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)("div", { className: "flex items-center justify-between", children: [
+        /* @__PURE__ */ (0, import_jsx_runtime20.jsxs)("div", { children: [
+          /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("p", { className: "font-medium text-[var(--foreground)]", children: "Sign out" }),
+          /* @__PURE__ */ (0, import_jsx_runtime20.jsx)("p", { className: "text-sm text-[var(--foreground-muted)]", children: "Sign out of your account on this device" })
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime20.jsx)(
+          Button,
+          {
+            variant: "secondary",
+            size: "sm",
+            onClick: handleSignOut,
+            loading: signingOut,
+            children: "Sign out"
+          }
+        )
+      ] })
+    ] })
+  ] });
+}
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
   AuthLayout,
@@ -1944,6 +2262,11 @@ function AuthLayout({
   PixelGeckoWatcher,
   PixelGeckoWaving,
   Progress,
+  SettingsDangerZone,
+  SettingsEmailSection,
+  SettingsLayout,
+  SettingsPasswordSection,
+  SettingsProfileSection,
   SignupForm,
   Skeleton,
   SkeletonAvatar,
