@@ -4,6 +4,9 @@ import { ButtonHTMLAttributes, HTMLAttributes, ReactNode, InputHTMLAttributes, L
 import * as react_jsx_runtime from 'react/jsx-runtime';
 export { AuthLayout, AuthLayoutProps, LoginForm, LoginFormProps, PasswordStrength, SignupForm, SignupFormProps, generatePassword, getPasswordStrength } from './auth/index.js';
 export { SettingsDangerZone, SettingsDangerZoneProps, SettingsEmailSection, SettingsEmailSectionProps, SettingsLayout, SettingsLayoutProps, SettingsPasswordSection, SettingsPasswordSectionProps, SettingsProfileSection, SettingsProfileSectionProps } from './settings/index.js';
+export { FooterLinkGroup, MarketingFooter, MarketingFooterProps, MarketingHeader, MarketingHeaderProps } from './marketing/index.js';
+export { BreadcrumbItem, Breadcrumbs, BreadcrumbsProps, FAQItem, FAQSection, FAQSectionProps, JsonLd, JsonLdProps } from './seo/index.js';
+export { DashboardHeader, DashboardHeaderProps, DashboardNavGroup, DashboardNavGroupProps, DashboardNavItem, DashboardNavItemProps, DashboardShell, DashboardShellProps, DashboardSidebar, DashboardSidebarProps, DashboardUserMenu, DashboardUserMenuProps } from './dashboard/index.js';
 import { ClassValue } from 'clsx';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -173,6 +176,33 @@ declare function CircularProgress({ value, max, size, strokeWidth, className, va
     showValue?: boolean;
 }): react_jsx_runtime.JSX.Element;
 
+interface ThemeToggleProps {
+    className?: string;
+}
+declare function ThemeToggle({ className }: ThemeToggleProps): react_jsx_runtime.JSX.Element;
+
+interface EmptyStateProps {
+    title: string;
+    description?: string;
+    icon?: ReactNode;
+    action?: {
+        label: string;
+        onClick?: () => void;
+        href?: string;
+    };
+    className?: string;
+}
+declare function EmptyState({ title, description, icon, action, className, }: EmptyStateProps): react_jsx_runtime.JSX.Element;
+
+interface DrawerProps {
+    open: boolean;
+    onClose: () => void;
+    side?: "left" | "right";
+    children: ReactNode;
+    className?: string;
+}
+declare function Drawer({ open, onClose, side, children, className }: DrawerProps): react_jsx_runtime.JSX.Element | null;
+
 declare function cn(...inputs: ClassValue[]): string;
 
-export { Badge, type BadgeProps, Button, type ButtonProps, Card, CardContent, CardDescription, CardFooter, CardHeader, type CardProps, CardTitle, CircularProgress, ConfirmDialog, Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, type DialogProps, DialogTitle, Input, type InputProps, Label, type LabelProps, Progress, type ProgressProps, Skeleton, SkeletonAvatar, SkeletonButton, SkeletonCard, SkeletonTableRow, SkeletonText, Tabs, TabsContent, TabsList, TabsTrigger, type Toast, ToastProvider, type ToastVariant, cn, useToast };
+export { Badge, type BadgeProps, Button, type ButtonProps, Card, CardContent, CardDescription, CardFooter, CardHeader, type CardProps, CardTitle, CircularProgress, ConfirmDialog, Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, type DialogProps, DialogTitle, Drawer, type DrawerProps, EmptyState, type EmptyStateProps, Input, type InputProps, Label, type LabelProps, Progress, type ProgressProps, Skeleton, SkeletonAvatar, SkeletonButton, SkeletonCard, SkeletonTableRow, SkeletonText, Tabs, TabsContent, TabsList, TabsTrigger, ThemeToggle, type ThemeToggleProps, type Toast, ToastProvider, type ToastVariant, cn, useToast };
