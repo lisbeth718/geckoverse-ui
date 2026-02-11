@@ -7,6 +7,7 @@ export { SettingsDangerZone, SettingsDangerZoneProps, SettingsEmailSection, Sett
 export { FooterLinkGroup, MarketingFooter, MarketingFooterProps, MarketingHeader, MarketingHeaderProps } from './marketing/index.js';
 export { BreadcrumbItem, Breadcrumbs, BreadcrumbsProps, FAQItem, FAQSection, FAQSectionProps, JsonLd, JsonLdProps } from './seo/index.js';
 export { DashboardHeader, DashboardHeaderProps, DashboardNavGroup, DashboardNavGroupProps, DashboardNavItem, DashboardNavItemProps, DashboardShell, DashboardShellProps, DashboardSidebar, DashboardSidebarProps, DashboardUserMenu, DashboardUserMenuProps } from './dashboard/index.js';
+export { ErrorContent, ErrorContentProps, LoadingContent, LoadingContentProps, NotFoundContent, NotFoundContentProps } from './pages/index.js';
 import { ClassValue } from 'clsx';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {

@@ -10,6 +10,7 @@ export default defineConfig({
     "seo/index": "src/seo/index.ts",
     "dashboard/index": "src/dashboard/index.ts",
     "hooks/index": "src/hooks/index.ts",
+    "pages/index": "src/pages/index.ts",
   },
   format: ["cjs", "esm"],
   dts: true,

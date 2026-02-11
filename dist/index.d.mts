@@ -7,6 +7,7 @@ export { SettingsDangerZone, SettingsDangerZoneProps, SettingsEmailSection, Sett
 export { FooterLinkGroup, MarketingFooter, MarketingFooterProps, MarketingHeader, MarketingHeaderProps } from './marketing/index.mjs';
 export { BreadcrumbItem, Breadcrumbs, BreadcrumbsProps, FAQItem, FAQSection, FAQSectionProps, JsonLd, JsonLdProps } from './seo/index.mjs';
 export { DashboardHeader, DashboardHeaderProps, DashboardNavGroup, DashboardNavGroupProps, DashboardNavItem, DashboardNavItemProps, DashboardShell, DashboardShellProps, DashboardSidebar, DashboardSidebarProps, DashboardUserMenu, DashboardUserMenuProps } from './dashboard/index.mjs';
+export { ErrorContent, ErrorContentProps, LoadingContent, LoadingContentProps, NotFoundContent, NotFoundContentProps } from './pages/index.mjs';
 import { ClassValue } from 'clsx';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {

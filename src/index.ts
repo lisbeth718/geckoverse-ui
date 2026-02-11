@@ -19,5 +19,8 @@ export * from "./seo"
 // Dashboard components
 export * from "./dashboard"
 
+// Page components (404, error, loading)
+export * from "./pages"
+
 // Utilities
 export { cn } from "./utils"

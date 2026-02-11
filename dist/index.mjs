@@ -2714,6 +2714,63 @@ function DashboardUserMenu({
     ] })
   ] });
 }
+
+// src/pages/not-found-content.tsx
+import Link5 from "next/link";
+import { jsx as jsx34, jsxs as jsxs29 } from "react/jsx-runtime";
+function NotFoundContent({
+  title = "Page not found",
+  description = "The page you're looking for doesn't exist. Maybe it crawled away, or maybe it was never here.",
+  illustration,
+  primaryAction,
+  secondaryAction,
+  className
+}) {
+  return /* @__PURE__ */ jsx34("div", { className: cn("flex flex-col items-center justify-center px-6 py-24", className), children: /* @__PURE__ */ jsxs29("div", { className: "max-w-md text-center", children: [
+    /* @__PURE__ */ jsx34("div", { className: "flex justify-center mb-8", children: illustration }),
+    /* @__PURE__ */ jsx34("h1", { className: "text-4xl font-bold mb-4", children: title }),
+    /* @__PURE__ */ jsx34("p", { className: "text-[var(--foreground-muted)] mb-8", children: description }),
+    /* @__PURE__ */ jsxs29("div", { className: "flex flex-col sm:flex-row gap-4 justify-center", children: [
+      /* @__PURE__ */ jsx34(Link5, { href: primaryAction.href, children: /* @__PURE__ */ jsx34(Button, { variant: "primary", size: "lg", children: primaryAction.label }) }),
+      secondaryAction && /* @__PURE__ */ jsx34(Link5, { href: secondaryAction.href, children: /* @__PURE__ */ jsx34(Button, { variant: "secondary", size: "lg", children: secondaryAction.label }) })
+    ] })
+  ] }) });
+}
+
+// src/pages/error-content.tsx
+import Link6 from "next/link";
+import { jsx as jsx35, jsxs as jsxs30 } from "react/jsx-runtime";
+function ErrorContent({
+  title = "Something went wrong",
+  description = "An unexpected error occurred. Try again, or head back home if the problem persists.",
+  illustration,
+  onReset,
+  primaryAction,
+  className
+}) {
+  return /* @__PURE__ */ jsx35("div", { className: cn("flex flex-col items-center justify-center px-6 py-24", className), children: /* @__PURE__ */ jsxs30("div", { className: "max-w-md text-center", children: [
+    /* @__PURE__ */ jsx35("div", { className: "flex justify-center mb-8", children: illustration }),
+    /* @__PURE__ */ jsx35("h1", { className: "text-4xl font-bold mb-4", children: title }),
+    /* @__PURE__ */ jsx35("p", { className: "text-[var(--foreground-muted)] mb-8", children: description }),
+    /* @__PURE__ */ jsxs30("div", { className: "flex flex-col sm:flex-row gap-4 justify-center", children: [
+      /* @__PURE__ */ jsx35(Button, { variant: "primary", size: "lg", onClick: onReset, children: "Try again" }),
+      primaryAction && /* @__PURE__ */ jsx35(Link6, { href: primaryAction.href, children: /* @__PURE__ */ jsx35(Button, { variant: "secondary", size: "lg", children: primaryAction.label }) })
+    ] })
+  ] }) });
+}
+
+// src/pages/loading-content.tsx
+import { jsx as jsx36, jsxs as jsxs31 } from "react/jsx-runtime";
+function LoadingContent({
+  illustration,
+  message,
+  className
+}) {
+  return /* @__PURE__ */ jsxs31("div", { className: cn("flex flex-col items-center justify-center min-h-[60vh] px-6", className), children: [
+    /* @__PURE__ */ jsx36("div", { className: "flex justify-center mb-4", children: illustration }),
+    message && /* @__PURE__ */ jsx36("p", { className: "text-sm text-[var(--foreground-muted)]", children: message })
+  ] });
+}
 export {
   AuthLayout,
   Badge,
@@ -2741,6 +2798,7 @@ export {
   DialogTitle,
   Drawer,
   EmptyState,
+  ErrorContent,
   FAQSection,
   GeckoCursorTrail,
   GeckoLoadingWithFact,
@@ -2748,9 +2806,11 @@ export {
   Input,
   JsonLd,
   Label,
+  LoadingContent,
   LoginForm,
   MarketingFooter,
   MarketingHeader,
+  NotFoundContent,
   PixelGecko,
   PixelGecko404,
   PixelGeckoAngry,

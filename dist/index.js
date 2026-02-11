@@ -57,6 +57,7 @@ __export(src_exports, {
   DialogTitle: () => DialogTitle,
   Drawer: () => Drawer,
   EmptyState: () => EmptyState,
+  ErrorContent: () => ErrorContent,
   FAQSection: () => FAQSection,
   GeckoCursorTrail: () => GeckoCursorTrail,
   GeckoLoadingWithFact: () => GeckoLoadingWithFact,
@@ -64,9 +65,11 @@ __export(src_exports, {
   Input: () => Input,
   JsonLd: () => JsonLd,
   Label: () => Label,
+  LoadingContent: () => LoadingContent,
   LoginForm: () => LoginForm,
   MarketingFooter: () => MarketingFooter,
   MarketingHeader: () => MarketingHeader,
+  NotFoundContent: () => NotFoundContent,
   PixelGecko: () => PixelGecko,
   PixelGecko404: () => PixelGecko404,
   PixelGeckoAngry: () => PixelGeckoAngry,
@@ -2826,6 +2829,63 @@ function DashboardUserMenu({
     ] })
   ] });
 }
+
+// src/pages/not-found-content.tsx
+var import_link5 = __toESM(require("next/link"));
+var import_jsx_runtime34 = require("react/jsx-runtime");
+function NotFoundContent({
+  title = "Page not found",
+  description = "The page you're looking for doesn't exist. Maybe it crawled away, or maybe it was never here.",
+  illustration,
+  primaryAction,
+  secondaryAction,
+  className
+}) {
+  return /* @__PURE__ */ (0, import_jsx_runtime34.jsx)("div", { className: cn("flex flex-col items-center justify-center px-6 py-24", className), children: /* @__PURE__ */ (0, import_jsx_runtime34.jsxs)("div", { className: "max-w-md text-center", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime34.jsx)("div", { className: "flex justify-center mb-8", children: illustration }),
+    /* @__PURE__ */ (0, import_jsx_runtime34.jsx)("h1", { className: "text-4xl font-bold mb-4", children: title }),
+    /* @__PURE__ */ (0, import_jsx_runtime34.jsx)("p", { className: "text-[var(--foreground-muted)] mb-8", children: description }),
+    /* @__PURE__ */ (0, import_jsx_runtime34.jsxs)("div", { className: "flex flex-col sm:flex-row gap-4 justify-center", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime34.jsx)(import_link5.default, { href: primaryAction.href, children: /* @__PURE__ */ (0, import_jsx_runtime34.jsx)(Button, { variant: "primary", size: "lg", children: primaryAction.label }) }),
+      secondaryAction && /* @__PURE__ */ (0, import_jsx_runtime34.jsx)(import_link5.default, { href: secondaryAction.href, children: /* @__PURE__ */ (0, import_jsx_runtime34.jsx)(Button, { variant: "secondary", size: "lg", children: secondaryAction.label }) })
+    ] })
+  ] }) });
+}
+
+// src/pages/error-content.tsx
+var import_link6 = __toESM(require("next/link"));
+var import_jsx_runtime35 = require("react/jsx-runtime");
+function ErrorContent({
+  title = "Something went wrong",
+  description = "An unexpected error occurred. Try again, or head back home if the problem persists.",
+  illustration,
+  onReset,
+  primaryAction,
+  className
+}) {
+  return /* @__PURE__ */ (0, import_jsx_runtime35.jsx)("div", { className: cn("flex flex-col items-center justify-center px-6 py-24", className), children: /* @__PURE__ */ (0, import_jsx_runtime35.jsxs)("div", { className: "max-w-md text-center", children: [
+    /* @__PURE__ */ (0, import_jsx_runtime35.jsx)("div", { className: "flex justify-center mb-8", children: illustration }),
+    /* @__PURE__ */ (0, import_jsx_runtime35.jsx)("h1", { className: "text-4xl font-bold mb-4", children: title }),
+    /* @__PURE__ */ (0, import_jsx_runtime35.jsx)("p", { className: "text-[var(--foreground-muted)] mb-8", children: description }),
+    /* @__PURE__ */ (0, import_jsx_runtime35.jsxs)("div", { className: "flex flex-col sm:flex-row gap-4 justify-center", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime35.jsx)(Button, { variant: "primary", size: "lg", onClick: onReset, children: "Try again" }),
+      primaryAction && /* @__PURE__ */ (0, import_jsx_runtime35.jsx)(import_link6.default, { href: primaryAction.href, children: /* @__PURE__ */ (0, import_jsx_runtime35.jsx)(Button, { variant: "secondary", size: "lg", children: primaryAction.label }) })
+    ] })
+  ] }) });
+}
+
+// src/pages/loading-content.tsx
+var import_jsx_runtime36 = require("react/jsx-runtime");
+function LoadingContent({
+  illustration,
+  message,
+  className
+}) {
+  return /* @__PURE__ */ (0, import_jsx_runtime36.jsxs)("div", { className: cn("flex flex-col items-center justify-center min-h-[60vh] px-6", className), children: [
+    /* @__PURE__ */ (0, import_jsx_runtime36.jsx)("div", { className: "flex justify-center mb-4", children: illustration }),
+    message && /* @__PURE__ */ (0, import_jsx_runtime36.jsx)("p", { className: "text-sm text-[var(--foreground-muted)]", children: message })
+  ] });
+}
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
   AuthLayout,
@@ -2854,6 +2914,7 @@ function DashboardUserMenu({
   DialogTitle,
   Drawer,
   EmptyState,
+  ErrorContent,
   FAQSection,
   GeckoCursorTrail,
   GeckoLoadingWithFact,
@@ -2861,9 +2922,11 @@ function DashboardUserMenu({
   Input,
   JsonLd,
   Label,
+  LoadingContent,
   LoginForm,
   MarketingFooter,
   MarketingHeader,
+  NotFoundContent,
   PixelGecko,
   PixelGecko404,
   PixelGeckoAngry,
