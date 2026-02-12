@@ -2253,7 +2253,7 @@ function SettingsDangerZone({
 }
 
 // src/marketing/marketing-header.tsx
-import { useState as useState11 } from "react";
+import { useState as useState11, useEffect as useEffect6 } from "react";
 import Link from "next/link";
 import { Fragment as Fragment2, jsx as jsx24, jsxs as jsxs20 } from "react/jsx-runtime";
 function MarketingHeader({
@@ -2269,8 +2269,16 @@ function MarketingHeader({
   className
 }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState11(false);
+  const [scrolled, setScrolled] = useState11(false);
+  useEffect6(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 16);
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
   return /* @__PURE__ */ jsxs20("header", { className: cn(
-    "fixed top-0 left-0 right-0 z-50 bg-[var(--background)]/80 backdrop-blur-lg border-b border-[var(--border)]",
+    "fixed top-0 left-0 right-0 z-50 border-b border-[var(--border)] transition-colors duration-200",
+    scrolled ? "bg-[var(--background)]" : "bg-[var(--background)]/80 backdrop-blur-lg",
     className
   ), children: [
     /* @__PURE__ */ jsxs20("nav", { className: "max-w-7xl mx-auto px-6 h-16 flex items-center justify-between", children: [
@@ -2635,7 +2643,7 @@ function DashboardNavGroup({
 }
 
 // src/dashboard/dashboard-user-menu.tsx
-import { useState as useState13, useRef as useRef2, useEffect as useEffect6 } from "react";
+import { useState as useState13, useRef as useRef2, useEffect as useEffect7 } from "react";
 import { jsx as jsx33, jsxs as jsxs28 } from "react/jsx-runtime";
 function DashboardUserMenu({
   user,
@@ -2645,7 +2653,7 @@ function DashboardUserMenu({
 }) {
   const [open, setOpen] = useState13(false);
   const ref = useRef2(null);
-  useEffect6(() => {
+  useEffect7(() => {
     if (!open) return;
     const handler = (e) => {
       if (ref.current && !ref.current.contains(e.target)) {
@@ -2655,7 +2663,7 @@ function DashboardUserMenu({
     document.addEventListener("mousedown", handler);
     return () => document.removeEventListener("mousedown", handler);
   }, [open]);
-  useEffect6(() => {
+  useEffect7(() => {
     if (!open) return;
     const handler = (e) => {
       if (e.key === "Escape") setOpen(false);

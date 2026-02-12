@@ -2384,8 +2384,16 @@ function MarketingHeader({
   className
 }) {
   const [mobileMenuOpen, setMobileMenuOpen] = (0, import_react17.useState)(false);
+  const [scrolled, setScrolled] = (0, import_react17.useState)(false);
+  (0, import_react17.useEffect)(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 16);
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
   return /* @__PURE__ */ (0, import_jsx_runtime24.jsxs)("header", { className: cn(
-    "fixed top-0 left-0 right-0 z-50 bg-[var(--background)]/80 backdrop-blur-lg border-b border-[var(--border)]",
+    "fixed top-0 left-0 right-0 z-50 border-b border-[var(--border)] transition-colors duration-200",
+    scrolled ? "bg-[var(--background)]" : "bg-[var(--background)]/80 backdrop-blur-lg",
     className
   ), children: [
     /* @__PURE__ */ (0, import_jsx_runtime24.jsxs)("nav", { className: "max-w-7xl mx-auto px-6 h-16 flex items-center justify-between", children: [
