@@ -18,7 +18,7 @@ export function DashboardSidebar({
 }: DashboardSidebarProps) {
   return (
     <aside className={cn(
-      "hidden flex-shrink-0 border-r border-[var(--border)] bg-[var(--background)] md:flex md:flex-col transition-all duration-200",
+      "hidden flex-shrink-0 border-r border-[var(--border)] bg-[var(--background)] md:flex md:flex-col transition-all duration-200 overflow-hidden",
       collapsed ? "w-[72px]" : "w-64",
       className
     )}>
