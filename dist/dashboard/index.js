@@ -70,15 +70,26 @@ function DashboardSidebar({
   brand,
   children,
   footer,
+  collapsed = false,
   className
 }) {
   return /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("aside", { className: cn(
-    "hidden w-64 flex-shrink-0 border-r border-[var(--border)] bg-[var(--background)] md:flex md:flex-col",
+    "hidden flex-shrink-0 border-r border-[var(--border)] bg-[var(--background)] md:flex md:flex-col transition-all duration-200",
+    collapsed ? "w-[72px]" : "w-64",
     className
   ), children: [
-    /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: "flex h-16 items-center border-b border-[var(--border)] px-5", children: brand }),
-    /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("nav", { className: "flex-1 space-y-1 px-3 py-4 overflow-y-auto", children }),
-    footer && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: "border-t border-[var(--border)] p-4", children: footer })
+    /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: cn(
+      "flex h-16 items-center border-b border-[var(--border)]",
+      collapsed ? "justify-center px-2" : "px-5"
+    ), children: brand }),
+    /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("nav", { className: cn(
+      "flex-1 overflow-y-auto py-4",
+      collapsed ? "px-2 space-y-1" : "px-3 space-y-1"
+    ), children }),
+    footer && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: cn(
+      "border-t border-[var(--border)]",
+      collapsed ? "p-2" : "p-4"
+    ), children: footer })
   ] });
 }
 
@@ -196,39 +207,49 @@ function DashboardNavItem({
   badge,
   active,
   onClick,
+  collapsed = false,
+  activeClassName,
   children,
   className
 }) {
   const pathname = (0, import_navigation.usePathname)();
   const isActive = active ?? (href === "/app" || href === "/" ? pathname === href : pathname.startsWith(href));
+  const defaultActiveClass = "bg-[var(--accent)] text-[var(--background)]";
+  const activeClass = activeClassName || defaultActiveClass;
   return /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)(
     import_link.default,
     {
       href,
       onClick,
+      title: collapsed ? typeof children === "string" ? children : void 0 : void 0,
       className: cn(
-        "group flex items-center gap-3 px-3 py-2.5 text-sm font-medium transition-all rounded-xl",
-        isActive ? "bg-[var(--accent)] text-[var(--background)]" : "text-[var(--foreground-muted)] hover:bg-[var(--background-elevated)] hover:text-[var(--foreground)]",
+        "group flex items-center text-sm font-medium transition-all rounded-xl relative",
+        collapsed ? "justify-center px-0 py-2.5 w-full" : "gap-3 px-3 py-2.5",
+        isActive ? activeClass : "text-[var(--foreground-muted)] hover:bg-[var(--background-elevated)] hover:text-[var(--foreground)]",
         className
       ),
       children: [
         icon && /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("span", { className: cn(
-          "h-5 w-5 flex items-center justify-center [&>svg]:h-5 [&>svg]:w-5",
-          isActive ? "text-[var(--background)]" : "text-[var(--foreground-subtle)] group-hover:text-[var(--accent)]"
+          "h-5 w-5 flex items-center justify-center [&>svg]:h-5 [&>svg]:w-5 flex-shrink-0",
+          isActive && !activeClassName ? "text-[var(--background)]" : isActive && activeClassName ? "" : "text-[var(--foreground-subtle)] group-hover:text-[var(--accent)]"
         ), children: icon }),
-        /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("span", { className: "flex-1", children }),
-        badge
+        !collapsed && /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)(import_jsx_runtime5.Fragment, { children: [
+          /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("span", { className: "flex-1 truncate", children }),
+          badge
+        ] })
       ]
     }
   );
 }
 function DashboardNavGroup({
   label,
+  collapsed = false,
   children,
   className
 }) {
   return /* @__PURE__ */ (0, import_jsx_runtime5.jsxs)("div", { className: cn("space-y-1", className), children: [
-    label && /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("p", { className: "px-3 py-2 text-xs font-semibold uppercase tracking-wider text-[var(--foreground-subtle)]", children: label }),
+    label && !collapsed && /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("p", { className: "px-3 py-2 text-xs font-semibold uppercase tracking-wider text-[var(--foreground-subtle)]", children: label }),
+    label && collapsed && /* @__PURE__ */ (0, import_jsx_runtime5.jsx)("div", { className: "mx-auto my-2 w-6 border-t border-[var(--border)]" }),
     children
   ] });
 }

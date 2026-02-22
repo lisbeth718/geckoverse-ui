@@ -11,6 +11,10 @@ export interface DashboardNavItemProps {
   active?: boolean
   /** Click handler (e.g. to close mobile menu) */
   onClick?: () => void
+  /** Whether sidebar is in collapsed mode */
+  collapsed?: boolean
+  /** Custom class for the active state (replaces default active styling) */
+  activeClassName?: string
   children: ReactNode
   className?: string
 }
@@ -21,6 +25,8 @@ export function DashboardNavItem({
   badge,
   active,
   onClick,
+  collapsed = false,
+  activeClassName,
   children,
   className,
 }: DashboardNavItemProps) {
@@ -31,51 +37,67 @@ export function DashboardNavItem({
       : pathname.startsWith(href)
   )
 
+  const defaultActiveClass = "bg-[var(--accent)] text-[var(--background)]"
+  const activeClass = activeClassName || defaultActiveClass
+
   return (
     <Link
       href={href}
       onClick={onClick}
+      title={collapsed ? (typeof children === "string" ? children : undefined) : undefined}
       className={cn(
-        "group flex items-center gap-3 px-3 py-2.5 text-sm font-medium transition-all rounded-xl",
+        "group flex items-center text-sm font-medium transition-all rounded-xl relative",
+        collapsed ? "justify-center px-0 py-2.5 w-full" : "gap-3 px-3 py-2.5",
         isActive
-          ? "bg-[var(--accent)] text-[var(--background)]"
+          ? activeClass
           : "text-[var(--foreground-muted)] hover:bg-[var(--background-elevated)] hover:text-[var(--foreground)]",
         className
       )}
     >
       {icon && (
         <span className={cn(
-          "h-5 w-5 flex items-center justify-center [&>svg]:h-5 [&>svg]:w-5",
-          isActive
+          "h-5 w-5 flex items-center justify-center [&>svg]:h-5 [&>svg]:w-5 flex-shrink-0",
+          isActive && !activeClassName
             ? "text-[var(--background)]"
-            : "text-[var(--foreground-subtle)] group-hover:text-[var(--accent)]"
+            : isActive && activeClassName
+              ? ""
+              : "text-[var(--foreground-subtle)] group-hover:text-[var(--accent)]"
         )}>
           {icon}
         </span>
       )}
-      <span className="flex-1">{children}</span>
-      {badge}
+      {!collapsed && (
+        <>
+          <span className="flex-1 truncate">{children}</span>
+          {badge}
+        </>
+      )}
     </Link>
   )
 }
 
 export interface DashboardNavGroupProps {
   label?: string
+  collapsed?: boolean
   children: ReactNode
   className?: string
 }
 
 export function DashboardNavGroup({
   label,
+  collapsed = false,
   children,
   className,
 }: DashboardNavGroupProps) {
   return (
     <div className={cn("space-y-1", className)}>
-      {label && (
+      {label && !collapsed && (
         <p className="px-3 py-2 text-xs font-semibold uppercase tracking-wider text-[var(--foreground-subtle)]">
           {label}
         </p>
+      )}
+      {label && collapsed && (
+        <div className="mx-auto my-2 w-6 border-t border-[var(--border)]" />
       )}
       {children}
     </div>

@@ -5,6 +5,7 @@ export interface DashboardSidebarProps {
   brand: ReactNode
   children: ReactNode
   footer?: ReactNode
+  collapsed?: boolean
   className?: string
 }
 
@@ -12,26 +13,37 @@ export function DashboardSidebar({
   brand,
   children,
   footer,
+  collapsed = false,
   className,
 }: DashboardSidebarProps) {
   return (
     <aside className={cn(
-      "hidden w-64 flex-shrink-0 border-r border-[var(--border)] bg-[var(--background)] md:flex md:flex-col",
+      "hidden flex-shrink-0 border-r border-[var(--border)] bg-[var(--background)] md:flex md:flex-col transition-all duration-200",
+      collapsed ? "w-[72px]" : "w-64",
       className
     )}>
       {/* Brand */}
-      <div className="flex h-16 items-center border-b border-[var(--border)] px-5">
+      <div className={cn(
+        "flex h-16 items-center border-b border-[var(--border)]",
+        collapsed ? "justify-center px-2" : "px-5"
+      )}>
         {brand}
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 space-y-1 px-3 py-4 overflow-y-auto">
+      <nav className={cn(
+        "flex-1 overflow-y-auto py-4",
+        collapsed ? "px-2 space-y-1" : "px-3 space-y-1"
+      )}>
         {children}
       </nav>
 
       {/* Footer */}
       {footer && (
-        <div className="border-t border-[var(--border)] p-4">
+        <div className={cn(
+          "border-t border-[var(--border)]",
+          collapsed ? "p-2" : "p-4"
+        )}>
           {footer}
         </div>
       )}
