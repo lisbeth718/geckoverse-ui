@@ -1,7 +1,7 @@
 "use client";
 
 // src/marketing/marketing-header.tsx
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
 
 // src/utils.ts
@@ -97,78 +97,77 @@ function MarketingHeader({
   className
 }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 16);
-    handleScroll();
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-  return /* @__PURE__ */ jsxs2("header", { className: cn(
-    "fixed top-0 left-0 right-0 z-50 border-b border-[var(--border)] transition-colors duration-200",
-    scrolled ? "bg-[var(--background)]" : "bg-[var(--background)]/80 backdrop-blur-lg",
-    className
-  ), children: [
-    /* @__PURE__ */ jsxs2("nav", { className: "max-w-7xl mx-auto px-6 h-16 flex items-center justify-between", children: [
-      /* @__PURE__ */ jsxs2(Link, { href: brand.href || "/", className: "flex items-center gap-2", children: [
-        /* @__PURE__ */ jsx2("div", { className: "w-8 h-8 rounded-lg bg-[var(--background-subtle)] border border-[var(--border)] flex items-center justify-center overflow-hidden", children: brand.logo }),
-        /* @__PURE__ */ jsxs2("span", { className: "font-bold text-lg", children: [
-          /* @__PURE__ */ jsx2("span", { className: "text-[var(--foreground)]", children: brand.name[0] }),
-          /* @__PURE__ */ jsx2("span", { className: "text-[var(--accent)]", children: brand.name[1] })
-        ] })
-      ] }),
-      /* @__PURE__ */ jsx2("div", { className: "hidden md:flex items-center gap-8", children: navLinks.map((link) => /* @__PURE__ */ jsx2(
-        Link,
-        {
-          href: link.href,
-          className: "text-sm text-[var(--foreground-muted)] hover:text-[var(--foreground)] transition-colors",
-          children: link.label
-        },
-        link.href
-      )) }),
-      /* @__PURE__ */ jsxs2("div", { className: "hidden md:flex items-center gap-3", children: [
-        actions,
-        !loading && (isLoggedIn ? /* @__PURE__ */ jsx2(Link, { href: dashboardHref, children: /* @__PURE__ */ jsx2(Button, { size: "sm", children: "Dashboard" }) }) : /* @__PURE__ */ jsxs2(Fragment, { children: [
-          /* @__PURE__ */ jsx2(Link, { href: loginHref, children: /* @__PURE__ */ jsx2(Button, { variant: "ghost", size: "sm", children: "Log in" }) }),
-          /* @__PURE__ */ jsx2(Link, { href: signupHref, children: /* @__PURE__ */ jsx2(Button, { size: "sm", children: ctaText }) })
-        ] }))
-      ] }),
-      /* @__PURE__ */ jsx2(
-        "button",
-        {
-          className: "md:hidden p-2 text-[var(--foreground-muted)]",
-          onClick: () => setMobileMenuOpen(!mobileMenuOpen),
-          children: /* @__PURE__ */ jsx2("svg", { width: "24", height: "24", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", children: mobileMenuOpen ? /* @__PURE__ */ jsx2("path", { d: "M6 18L18 6M6 6l12 12" }) : /* @__PURE__ */ jsx2("path", { d: "M4 6h16M4 12h16M4 18h16" }) })
-        }
-      )
-    ] }),
-    mobileMenuOpen && /* @__PURE__ */ jsx2("div", { className: "md:hidden border-t border-[var(--border)] bg-[var(--background)]", children: /* @__PURE__ */ jsxs2("div", { className: "px-6 py-4 space-y-4", children: [
-      navLinks.map((link) => /* @__PURE__ */ jsx2(
-        Link,
-        {
-          href: link.href,
-          className: "block text-[var(--foreground-muted)]",
-          onClick: () => setMobileMenuOpen(false),
-          children: link.label
-        },
-        link.href
-      )),
-      actions && /* @__PURE__ */ jsx2(Fragment, { children: /* @__PURE__ */ jsx2("div", { className: "flex items-center gap-2 text-[var(--foreground-muted)]", children: actions }) }),
-      /* @__PURE__ */ jsx2("hr", { className: "border-[var(--border)]" }),
-      isLoggedIn ? /* @__PURE__ */ jsx2(Link, { href: dashboardHref, onClick: () => setMobileMenuOpen(false), children: /* @__PURE__ */ jsx2(Button, { className: "w-full", children: "Dashboard" }) }) : /* @__PURE__ */ jsxs2(Fragment, { children: [
-        /* @__PURE__ */ jsx2(
-          Link,
-          {
-            href: loginHref,
-            className: "block text-[var(--foreground-muted)]",
-            onClick: () => setMobileMenuOpen(false),
-            children: "Log in"
-          }
-        ),
-        /* @__PURE__ */ jsx2(Link, { href: signupHref, onClick: () => setMobileMenuOpen(false), children: /* @__PURE__ */ jsx2(Button, { className: "w-full", children: ctaText }) })
-      ] })
-    ] }) })
-  ] });
+  return /* @__PURE__ */ jsxs2(
+    "header",
+    {
+      className: cn(
+        "fixed top-0 left-0 right-0 z-50 border-b border-[var(--border)] transition-colors duration-200",
+        className
+      ),
+      style: { backgroundColor: "var(--background)" },
+      children: [
+        /* @__PURE__ */ jsxs2("nav", { className: "max-w-7xl mx-auto px-6 h-16 flex items-center justify-between", children: [
+          /* @__PURE__ */ jsxs2(Link, { href: brand.href || "/", className: "flex items-center gap-2", children: [
+            /* @__PURE__ */ jsx2("div", { className: "w-8 h-8 rounded-lg bg-[var(--background-subtle)] border border-[var(--border)] flex items-center justify-center overflow-hidden", children: brand.logo }),
+            /* @__PURE__ */ jsxs2("span", { className: "font-bold text-lg", children: [
+              /* @__PURE__ */ jsx2("span", { className: "text-[var(--foreground)]", children: brand.name[0] }),
+              /* @__PURE__ */ jsx2("span", { className: "text-[var(--accent)]", children: brand.name[1] })
+            ] })
+          ] }),
+          /* @__PURE__ */ jsx2("div", { className: "hidden md:flex items-center gap-8", children: navLinks.map((link) => /* @__PURE__ */ jsx2(
+            Link,
+            {
+              href: link.href,
+              className: "text-sm text-[var(--foreground-muted)] hover:text-[var(--foreground)] transition-colors",
+              children: link.label
+            },
+            link.href
+          )) }),
+          /* @__PURE__ */ jsxs2("div", { className: "hidden md:flex items-center gap-3", children: [
+            actions,
+            !loading && (isLoggedIn ? /* @__PURE__ */ jsx2(Link, { href: dashboardHref, children: /* @__PURE__ */ jsx2(Button, { size: "sm", children: "Dashboard" }) }) : /* @__PURE__ */ jsxs2(Fragment, { children: [
+              /* @__PURE__ */ jsx2(Link, { href: loginHref, children: /* @__PURE__ */ jsx2(Button, { variant: "ghost", size: "sm", children: "Log in" }) }),
+              /* @__PURE__ */ jsx2(Link, { href: signupHref, children: /* @__PURE__ */ jsx2(Button, { size: "sm", children: ctaText }) })
+            ] }))
+          ] }),
+          /* @__PURE__ */ jsx2(
+            "button",
+            {
+              className: "md:hidden p-2 text-[var(--foreground-muted)]",
+              onClick: () => setMobileMenuOpen(!mobileMenuOpen),
+              children: /* @__PURE__ */ jsx2("svg", { width: "24", height: "24", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", children: mobileMenuOpen ? /* @__PURE__ */ jsx2("path", { d: "M6 18L18 6M6 6l12 12" }) : /* @__PURE__ */ jsx2("path", { d: "M4 6h16M4 12h16M4 18h16" }) })
+            }
+          )
+        ] }),
+        mobileMenuOpen && /* @__PURE__ */ jsx2("div", { className: "md:hidden border-t border-[var(--border)] bg-[var(--background)]", children: /* @__PURE__ */ jsxs2("div", { className: "px-6 py-4 space-y-4", children: [
+          navLinks.map((link) => /* @__PURE__ */ jsx2(
+            Link,
+            {
+              href: link.href,
+              className: "block text-[var(--foreground-muted)]",
+              onClick: () => setMobileMenuOpen(false),
+              children: link.label
+            },
+            link.href
+          )),
+          actions && /* @__PURE__ */ jsx2(Fragment, { children: /* @__PURE__ */ jsx2("div", { className: "flex items-center gap-2 text-[var(--foreground-muted)]", children: actions }) }),
+          /* @__PURE__ */ jsx2("hr", { className: "border-[var(--border)]" }),
+          isLoggedIn ? /* @__PURE__ */ jsx2(Link, { href: dashboardHref, onClick: () => setMobileMenuOpen(false), children: /* @__PURE__ */ jsx2(Button, { className: "w-full", children: "Dashboard" }) }) : /* @__PURE__ */ jsxs2(Fragment, { children: [
+            /* @__PURE__ */ jsx2(
+              Link,
+              {
+                href: loginHref,
+                className: "block text-[var(--foreground-muted)]",
+                onClick: () => setMobileMenuOpen(false),
+                children: "Log in"
+              }
+            ),
+            /* @__PURE__ */ jsx2(Link, { href: signupHref, onClick: () => setMobileMenuOpen(false), children: /* @__PURE__ */ jsx2(Button, { className: "w-full", children: ctaText }) })
+          ] })
+        ] }) })
+      ]
+    }
+  );
 }
 
 // src/marketing/marketing-footer.tsx

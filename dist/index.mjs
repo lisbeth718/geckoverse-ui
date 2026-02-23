@@ -2253,7 +2253,7 @@ function SettingsDangerZone({
 }
 
 // src/marketing/marketing-header.tsx
-import { useState as useState11, useEffect as useEffect6 } from "react";
+import { useState as useState11 } from "react";
 import Link from "next/link";
 import { Fragment as Fragment2, jsx as jsx24, jsxs as jsxs20 } from "react/jsx-runtime";
 function MarketingHeader({
@@ -2269,78 +2269,77 @@ function MarketingHeader({
   className
 }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState11(false);
-  const [scrolled, setScrolled] = useState11(false);
-  useEffect6(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 16);
-    handleScroll();
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-  return /* @__PURE__ */ jsxs20("header", { className: cn(
-    "fixed top-0 left-0 right-0 z-50 border-b border-[var(--border)] transition-colors duration-200",
-    scrolled ? "bg-[var(--background)]" : "bg-[var(--background)]/80 backdrop-blur-lg",
-    className
-  ), children: [
-    /* @__PURE__ */ jsxs20("nav", { className: "max-w-7xl mx-auto px-6 h-16 flex items-center justify-between", children: [
-      /* @__PURE__ */ jsxs20(Link, { href: brand.href || "/", className: "flex items-center gap-2", children: [
-        /* @__PURE__ */ jsx24("div", { className: "w-8 h-8 rounded-lg bg-[var(--background-subtle)] border border-[var(--border)] flex items-center justify-center overflow-hidden", children: brand.logo }),
-        /* @__PURE__ */ jsxs20("span", { className: "font-bold text-lg", children: [
-          /* @__PURE__ */ jsx24("span", { className: "text-[var(--foreground)]", children: brand.name[0] }),
-          /* @__PURE__ */ jsx24("span", { className: "text-[var(--accent)]", children: brand.name[1] })
-        ] })
-      ] }),
-      /* @__PURE__ */ jsx24("div", { className: "hidden md:flex items-center gap-8", children: navLinks.map((link) => /* @__PURE__ */ jsx24(
-        Link,
-        {
-          href: link.href,
-          className: "text-sm text-[var(--foreground-muted)] hover:text-[var(--foreground)] transition-colors",
-          children: link.label
-        },
-        link.href
-      )) }),
-      /* @__PURE__ */ jsxs20("div", { className: "hidden md:flex items-center gap-3", children: [
-        actions,
-        !loading && (isLoggedIn ? /* @__PURE__ */ jsx24(Link, { href: dashboardHref, children: /* @__PURE__ */ jsx24(Button, { size: "sm", children: "Dashboard" }) }) : /* @__PURE__ */ jsxs20(Fragment2, { children: [
-          /* @__PURE__ */ jsx24(Link, { href: loginHref, children: /* @__PURE__ */ jsx24(Button, { variant: "ghost", size: "sm", children: "Log in" }) }),
-          /* @__PURE__ */ jsx24(Link, { href: signupHref, children: /* @__PURE__ */ jsx24(Button, { size: "sm", children: ctaText }) })
-        ] }))
-      ] }),
-      /* @__PURE__ */ jsx24(
-        "button",
-        {
-          className: "md:hidden p-2 text-[var(--foreground-muted)]",
-          onClick: () => setMobileMenuOpen(!mobileMenuOpen),
-          children: /* @__PURE__ */ jsx24("svg", { width: "24", height: "24", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", children: mobileMenuOpen ? /* @__PURE__ */ jsx24("path", { d: "M6 18L18 6M6 6l12 12" }) : /* @__PURE__ */ jsx24("path", { d: "M4 6h16M4 12h16M4 18h16" }) })
-        }
-      )
-    ] }),
-    mobileMenuOpen && /* @__PURE__ */ jsx24("div", { className: "md:hidden border-t border-[var(--border)] bg-[var(--background)]", children: /* @__PURE__ */ jsxs20("div", { className: "px-6 py-4 space-y-4", children: [
-      navLinks.map((link) => /* @__PURE__ */ jsx24(
-        Link,
-        {
-          href: link.href,
-          className: "block text-[var(--foreground-muted)]",
-          onClick: () => setMobileMenuOpen(false),
-          children: link.label
-        },
-        link.href
-      )),
-      actions && /* @__PURE__ */ jsx24(Fragment2, { children: /* @__PURE__ */ jsx24("div", { className: "flex items-center gap-2 text-[var(--foreground-muted)]", children: actions }) }),
-      /* @__PURE__ */ jsx24("hr", { className: "border-[var(--border)]" }),
-      isLoggedIn ? /* @__PURE__ */ jsx24(Link, { href: dashboardHref, onClick: () => setMobileMenuOpen(false), children: /* @__PURE__ */ jsx24(Button, { className: "w-full", children: "Dashboard" }) }) : /* @__PURE__ */ jsxs20(Fragment2, { children: [
-        /* @__PURE__ */ jsx24(
-          Link,
-          {
-            href: loginHref,
-            className: "block text-[var(--foreground-muted)]",
-            onClick: () => setMobileMenuOpen(false),
-            children: "Log in"
-          }
-        ),
-        /* @__PURE__ */ jsx24(Link, { href: signupHref, onClick: () => setMobileMenuOpen(false), children: /* @__PURE__ */ jsx24(Button, { className: "w-full", children: ctaText }) })
-      ] })
-    ] }) })
-  ] });
+  return /* @__PURE__ */ jsxs20(
+    "header",
+    {
+      className: cn(
+        "fixed top-0 left-0 right-0 z-50 border-b border-[var(--border)] transition-colors duration-200",
+        className
+      ),
+      style: { backgroundColor: "var(--background)" },
+      children: [
+        /* @__PURE__ */ jsxs20("nav", { className: "max-w-7xl mx-auto px-6 h-16 flex items-center justify-between", children: [
+          /* @__PURE__ */ jsxs20(Link, { href: brand.href || "/", className: "flex items-center gap-2", children: [
+            /* @__PURE__ */ jsx24("div", { className: "w-8 h-8 rounded-lg bg-[var(--background-subtle)] border border-[var(--border)] flex items-center justify-center overflow-hidden", children: brand.logo }),
+            /* @__PURE__ */ jsxs20("span", { className: "font-bold text-lg", children: [
+              /* @__PURE__ */ jsx24("span", { className: "text-[var(--foreground)]", children: brand.name[0] }),
+              /* @__PURE__ */ jsx24("span", { className: "text-[var(--accent)]", children: brand.name[1] })
+            ] })
+          ] }),
+          /* @__PURE__ */ jsx24("div", { className: "hidden md:flex items-center gap-8", children: navLinks.map((link) => /* @__PURE__ */ jsx24(
+            Link,
+            {
+              href: link.href,
+              className: "text-sm text-[var(--foreground-muted)] hover:text-[var(--foreground)] transition-colors",
+              children: link.label
+            },
+            link.href
+          )) }),
+          /* @__PURE__ */ jsxs20("div", { className: "hidden md:flex items-center gap-3", children: [
+            actions,
+            !loading && (isLoggedIn ? /* @__PURE__ */ jsx24(Link, { href: dashboardHref, children: /* @__PURE__ */ jsx24(Button, { size: "sm", children: "Dashboard" }) }) : /* @__PURE__ */ jsxs20(Fragment2, { children: [
+              /* @__PURE__ */ jsx24(Link, { href: loginHref, children: /* @__PURE__ */ jsx24(Button, { variant: "ghost", size: "sm", children: "Log in" }) }),
+              /* @__PURE__ */ jsx24(Link, { href: signupHref, children: /* @__PURE__ */ jsx24(Button, { size: "sm", children: ctaText }) })
+            ] }))
+          ] }),
+          /* @__PURE__ */ jsx24(
+            "button",
+            {
+              className: "md:hidden p-2 text-[var(--foreground-muted)]",
+              onClick: () => setMobileMenuOpen(!mobileMenuOpen),
+              children: /* @__PURE__ */ jsx24("svg", { width: "24", height: "24", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", children: mobileMenuOpen ? /* @__PURE__ */ jsx24("path", { d: "M6 18L18 6M6 6l12 12" }) : /* @__PURE__ */ jsx24("path", { d: "M4 6h16M4 12h16M4 18h16" }) })
+            }
+          )
+        ] }),
+        mobileMenuOpen && /* @__PURE__ */ jsx24("div", { className: "md:hidden border-t border-[var(--border)] bg-[var(--background)]", children: /* @__PURE__ */ jsxs20("div", { className: "px-6 py-4 space-y-4", children: [
+          navLinks.map((link) => /* @__PURE__ */ jsx24(
+            Link,
+            {
+              href: link.href,
+              className: "block text-[var(--foreground-muted)]",
+              onClick: () => setMobileMenuOpen(false),
+              children: link.label
+            },
+            link.href
+          )),
+          actions && /* @__PURE__ */ jsx24(Fragment2, { children: /* @__PURE__ */ jsx24("div", { className: "flex items-center gap-2 text-[var(--foreground-muted)]", children: actions }) }),
+          /* @__PURE__ */ jsx24("hr", { className: "border-[var(--border)]" }),
+          isLoggedIn ? /* @__PURE__ */ jsx24(Link, { href: dashboardHref, onClick: () => setMobileMenuOpen(false), children: /* @__PURE__ */ jsx24(Button, { className: "w-full", children: "Dashboard" }) }) : /* @__PURE__ */ jsxs20(Fragment2, { children: [
+            /* @__PURE__ */ jsx24(
+              Link,
+              {
+                href: loginHref,
+                className: "block text-[var(--foreground-muted)]",
+                onClick: () => setMobileMenuOpen(false),
+                children: "Log in"
+              }
+            ),
+            /* @__PURE__ */ jsx24(Link, { href: signupHref, onClick: () => setMobileMenuOpen(false), children: /* @__PURE__ */ jsx24(Button, { className: "w-full", children: ctaText }) })
+          ] })
+        ] }) })
+      ]
+    }
+  );
 }
 
 // src/marketing/marketing-footer.tsx
@@ -2664,7 +2663,7 @@ function DashboardNavGroup({
 }
 
 // src/dashboard/dashboard-user-menu.tsx
-import { useState as useState13, useRef as useRef2, useEffect as useEffect7 } from "react";
+import { useState as useState13, useRef as useRef2, useEffect as useEffect6 } from "react";
 import { jsx as jsx33, jsxs as jsxs28 } from "react/jsx-runtime";
 function DashboardUserMenu({
   user,
@@ -2674,7 +2673,7 @@ function DashboardUserMenu({
 }) {
   const [open, setOpen] = useState13(false);
   const ref = useRef2(null);
-  useEffect7(() => {
+  useEffect6(() => {
     if (!open) return;
     const handler = (e) => {
       if (ref.current && !ref.current.contains(e.target)) {
@@ -2684,7 +2683,7 @@ function DashboardUserMenu({
     document.addEventListener("mousedown", handler);
     return () => document.removeEventListener("mousedown", handler);
   }, [open]);
-  useEffect7(() => {
+  useEffect6(() => {
     if (!open) return;
     const handler = (e) => {
       if (e.key === "Escape") setOpen(false);

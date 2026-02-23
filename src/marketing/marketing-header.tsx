@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, ReactNode } from "react"
+import { useState, ReactNode } from "react"
 import Link from "next/link"
 import { cn } from "../utils"
 import { Button } from "../ui/button"
@@ -44,21 +44,15 @@ export function MarketingHeader({
   className,
 }: MarketingHeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [scrolled, setScrolled] = useState(false)
-
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 16)
-    handleScroll()
-    window.addEventListener("scroll", handleScroll, { passive: true })
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
 
   return (
-    <header className={cn(
-      "fixed top-0 left-0 right-0 z-50 border-b border-[var(--border)] transition-colors duration-200",
-      scrolled ? "bg-[var(--background)]" : "bg-[var(--background)]/80 backdrop-blur-lg",
-      className
-    )}>
+    <header
+      className={cn(
+        "fixed top-0 left-0 right-0 z-50 border-b border-[var(--border)] transition-colors duration-200",
+        className
+      )}
+      style={{ backgroundColor: "var(--background)" }}
+    >
       <nav className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
         {/* Logo */}
         <Link href={brand.href || "/"} className="flex items-center gap-2">
